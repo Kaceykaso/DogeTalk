@@ -1,3 +1,56 @@
+<?php
+// Things
+$chat = $doge = $doge_text = $you_text = "";
+$modifiers = array("Such","So","Many","Much","Very");
+$exclusions = array("a","and","are","at","for","from","got","has","have","i","in","many","much","on","other","so","such","that","the","their","them","they","those","to","very","was","will","went","were");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+  $chat = test_input($_POST["chat"]);
+  
+  // Take out random words
+	$words = explode(" ", $chat);
+	$new_words = array();
+	
+	// Build array of new words 
+	foreach ($words as $word) {
+		if (in_array(strtolower($word), $exclusions)) {
+		// Strip out filler words, do nothing if found
+		} else {
+			$new_words[] = $word;
+		}
+	}
+	// Add in random Doge modifer words
+	for ($i=0;$i<3;$i++) {
+		$randNum = rand(0, count($new_words));
+		$randNum2 = rand(0, 4);
+		if ($i <= count($new_words)) {
+			$doge .= $modifiers[$randNum2]." ".$words[$randNum].". ";
+		}
+		unset($randNum,$randNum2);
+	}
+	
+	// Save wonderful transcript below
+	$doge_text = "<div class=\"chat\"><h4 class=\"doge\">Doge:</h4><p class=\"doge\">";
+	$you_text = "<div class=\"chat\"><h4 class=\"you\">You:</h4><p>";
+	$you_text .= $chat;
+	$you_text .= "</p></div>";
+	$doge_text .= $doge;
+	$doge_text .= "</p></div>";
+	
+	// Unset
+	unset($words,$doge,$new_words);
+}
+
+function test_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,11 +67,11 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href='http://fonts.googleapis.com/css?family=Patrick+Hand' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet">
     
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!-- Just for debugging purposes. Don"t actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,23 +89,17 @@
       <img src="http://24.media.tumblr.com/b23ef59e7838d323c281de41a31d672a/tumblr_mw440xHVDP1t149l9o1_400.gif">
         <h1>DogeTalk</h1>
         <p class="lead">Such friend. Many chat.</p>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="">
         <p>
         	<input type="text" name="chat" size="40" class="form-control" placeholder="Much type.">
         </p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sbmt</a></p>
+        <p><button class="btn btn-lg btn-success" role="button" name="submitted" value="1">Sbmt</button></p>
+        </form>
       </div>
 
       <div class="row marketing">
-        <div class="col-lg-6">
-	        <div class="chat">
-	          <h4 class="you">You:</h4>
-	          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-	        </div>
-	        <div class="chat">
-	          <h4 class="doge">Doge:</h4>
-	          <p class="doge">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-	        </div>
-        </div>
+	        <?php echo $you_text;
+	        	  echo $doge_text; ?>
       </div>
 
       <div class="footer">
@@ -71,15 +118,6 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script>
-    	$(document).ready ( function(){
-	    	var colors = ['red','yellow','blue','lime','orange','fuchsia','aqua','purple'];
-	    	var title = document.getElementsByTagName("h1")[0].innerHTML;
-	    	//var letters = title.split("");
-	    	//title.innerHTML = letters.join(",");
-	    	title.style.color = "red";
-    	});
-    </script>
   </body>
 </html>
 
