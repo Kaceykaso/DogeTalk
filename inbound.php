@@ -3,6 +3,12 @@
 require_once './unirest-php/lib/Unirest.php';
 require_once './sendgrid-php/lib/SendGrid.php';
 SendGrid::register_autoloader();
+require_once('./Dotenv.php');
+Dotenv::load(__DIR__);
+
+$sendgrid_name = $_SERVER['SENDGRID_USERNAME'];
+$sendgrid_pass = $_SERVER['SENDGRID_PASSWORD'];
+$sendgrid_to = $_SERVER['TO'];
 
 
 Class SendgridParse {
@@ -110,11 +116,11 @@ $exclusions = array("a","and","are","at","for","from","got","has","have","i","in
 	
 	
 	// Send Doge email back!
-	$sendgrid = new SendGrid('kaceykaso', 'Bazinga83');
+	$sendgrid = new SendGrid($sendgrid_name, $sendgrid_pass);
 	
 	$mail = new SendGrid\Email();
-	$mail->addTo('kaceycoughlin@mac.com')->
-       setFrom('kaceycoughlin@mac.com')->
+	$mail->addTo($parsed->fromRaw)->
+       setFrom('mackovision@gmail.com')->
        setSubject($doge)->
        setText($doge);
        
