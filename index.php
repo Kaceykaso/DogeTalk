@@ -5,7 +5,7 @@ $chat = $doge = "";
 $modifiers = array("Such","So","Many","Much","Very");
 $exclusions = array("a","and","are","at","for","from","got","has","have","i","in","many","much","on","other","so","such","that","the","their","them","they","to","too","those","very","was","will","went","were");
 
-//if ($_SERVER["REQUEST_METHOD"] == "POST")
+
 if ($_POST['submitted']) {
   $chat = test_input($_POST["chat"]);
   
