@@ -1,11 +1,12 @@
 <?php
 // Things
-$chat = $doge = $doge_text = $you_text = "";
+$file = "chat.txt";
+$chat = $doge = "";
 $modifiers = array("Such","So","Many","Much","Very");
-$exclusions = array("a","and","are","at","for","from","got","has","have","i","in","many","much","on","other","so","such","that","the","their","them","they","those","to","very","was","will","went","were");
+$exclusions = array("a","and","are","at","for","from","got","has","have","i","in","many","much","on","other","so","such","that","the","their","them","they","to","too","those","very","was","will","went","were");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
+//if ($_SERVER["REQUEST_METHOD"] == "POST")
+if ($_POST['submitted']) {
   $chat = test_input($_POST["chat"]);
   
   // Take out random words
@@ -21,7 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		}
 	}
 	// Add in random Doge modifer words
-	for ($i=0;$i<3;$i++) {
+	$max = count($new_words) * 0.75; 
+	$maxInt = round($max, 0, PHP_ROUND_HALF_UP);// Make length of Doge's text realtive to length of user's input
+	
+	for ($i=0;$i<$maxInt;$i++) {
 		$randNum = rand(0, count($new_words));
 		$randNum2 = rand(0, 4);
 		if ($i <= count($new_words)) {
@@ -31,15 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 	
 	// Save wonderful transcript below
-	$doge_text = "<div class=\"chat\"><h4 class=\"doge\">Doge:</h4><p class=\"doge\">";
-	$you_text = "<div class=\"chat\"><h4 class=\"you\">You:</h4><p>";
-	$you_text .= $chat;
-	$you_text .= "</p></div>";
-	$doge_text .= $doge;
-	$doge_text .= "</p></div>";
+	$this_chat = "<div class=\"chat\"><h4 class=\"you\">You:</h4><p>".$chat."</p></div><div class=\"chat\"><h4 class=\"doge\">Doge:</h4><p class=\"doge\">".$doge."</p></div>\n";
+	
+	file_put_contents($file, $this_chat, FILE_APPEND | LOCK_EX);
 	
 	// Unset
-	unset($words,$doge,$new_words);
+	unset($words,$doge,$new_words,$i,$this_chat);
+}
+
+if ($_POST['reset']) {
+	if (file_exists($file)) {
+		unlink($file);
+	}
 }
 
 function test_input($data)
@@ -89,23 +96,32 @@ function test_input($data)
       <img src="http://24.media.tumblr.com/b23ef59e7838d323c281de41a31d672a/tumblr_mw440xHVDP1t149l9o1_400.gif">
         <h1>DogeTalk</h1>
         <p class="lead">Such friend. Many chat.</p>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <p>
         	<input type="text" name="chat" size="40" class="form-control" placeholder="Much type.">
         </p>
-        <p><button class="btn btn-lg btn-success" role="button" name="submitted" value="1">Sbmt</button></p>
+        <p><input type="submit" class="btn btn-lg btn-success" role="button" name="submitted" value="Sbmt">
+        <input type="submit" class="btn btn-lg btn-warning" role="button" name="reset" value="Reset">
+        </p>
         </form>
       </div>
 
       <div class="row marketing">
-	        <?php echo $you_text;
-	        	  echo $doge_text; ?>
+	        <?php 
+	        	if (file_exists($file)) {
+		        	$read = file_get_contents($file);
+					$temp = explode("\n", $read);
+					$chats = array_reverse($temp);
+					foreach ($chats as $talk) {
+						echo $talk;
+					}
+	        	}
+	         ?>
       </div>
 
       <div class="footer">
         <p>
-        	&copy; 2013 <a href="">Kacey Coughlin Web Design &amp; Development</a>
-			<span class="pull-right"><a href="">About</a></span>
+        	&copy; 2013 <a href="http://www.kaceycoughlin.com">Kacey Coughlin Web Design &amp; Development</a>
 		</p>
       </div>
 
