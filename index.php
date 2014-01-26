@@ -8,16 +8,15 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>DogeTalk</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="custom.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Patrick+Hand' rel='stylesheet' type='text/css'>
+    <link href="css/custom.css" rel="stylesheet">
+    
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,47 +31,35 @@
   <body>
 
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">Project name</h3>
-      </div>
 
       <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+      <img src="http://24.media.tumblr.com/b23ef59e7838d323c281de41a31d672a/tumblr_mw440xHVDP1t149l9o1_400.gif">
+        <h1>DogeTalk</h1>
+        <p class="lead">Such friend. Many chat.</p>
+        <p>
+        	<input type="text" name="chat" size="40" class="form-control" placeholder="Much type.">
+        </p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sbmt</a></p>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+	        <div class="chat">
+	          <h4 class="you">You:</h4>
+	          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+	        </div>
+	        <div class="chat">
+	          <h4 class="doge">Doge:</h4>
+	          <p class="doge">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+	        </div>
         </div>
       </div>
 
       <div class="footer">
-        <p>&copy; Company 2013</p>
+        <p>
+        	&copy; 2013 <a href="">Kacey Coughlin Web Design &amp; Development</a>
+			<span class="pull-right"><a href="">About</a></span>
+		</p>
       </div>
 
     </div> <!-- /container -->
@@ -83,8 +70,16 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script>
+    	$(document).ready ( function(){
+	    	var colors = ['red','yellow','blue','lime','orange','fuchsia','aqua','purple'];
+	    	var title = document.getElementsByTagName("h1")[0].innerHTML;
+	    	//var letters = title.split("");
+	    	//title.innerHTML = letters.join(",");
+	    	title.style.color = "red";
+    	});
+    </script>
   </body>
 </html>
 
