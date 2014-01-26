@@ -122,6 +122,7 @@ function test_input($data)
       <div class="footer">
         <p>
         	&copy; 2013 <a href="http://www.kaceycoughlin.com">Kacey Coughlin Web Design &amp; Development</a>
+        	<span class="pull-right"><a href="http://kaceykaso.github.io/DogeTalk/">Email Doge</a></span>
 		</p>
       </div>
 
