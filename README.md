@@ -1,7 +1,8 @@
 DogeTalk
 ========
 
-Talk to Doge! Such wow! Much chat! So meme!
+Talk to Doge! Such wow! Much chat! So meme!<br>
+This was originally created as a <a href="https://www.hackerleague.org/hackathons/hacktech/hacks/dogetalk">hackathon project for HackTech 2014</a>.
 
 Email Doge
 ==========
